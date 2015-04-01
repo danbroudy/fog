@@ -11,7 +11,6 @@ Shindo.tests('Fog::Compute[:google] | global forwarding rule requests', ['google
       'status' => String,
       'user' => String,
       'progress' => Integer,
-      'zone' => String,
       'insertTime' => String,
       'startTime' => String,
       'operationType' => String
@@ -41,7 +40,6 @@ Shindo.tests('Fog::Compute[:google] | global forwarding rule requests', ['google
       'user' => String,
       'progress' => Integer,
       'insertTime' => String,
-      'zone' => String,
       'startTime' => String,
       'operationType' => String
   }

@@ -1,3 +1,5 @@
+require 'securerandom'
+
 Shindo.tests('Fog::Compute[:google] | target HTTP proxy requests', ['google']) do
 
   @google = Fog::Compute[:google]
@@ -11,7 +13,6 @@ Shindo.tests('Fog::Compute[:google] | target HTTP proxy requests', ['google']) d
       'status' => String,
       'user' => String,
       'progress' => Integer,
-      'zone' => String,
       'insertTime' => String,
       'startTime' => String,
       'operationType' => String
@@ -37,7 +38,6 @@ Shindo.tests('Fog::Compute[:google] | target HTTP proxy requests', ['google']) d
       'user' => String,
       'progress' => Integer,
       'insertTime' => String,
-      'zone' => String,
       'startTime' => String,
       'operationType' => String
   }
@@ -51,7 +51,9 @@ Shindo.tests('Fog::Compute[:google] | target HTTP proxy requests', ['google']) d
 
   tests('success') do
 
-    target_http_proxy_name = 'test-target-http-proxy'
+    random_string = SecureRandom.hex
+
+    target_http_proxy_name = 'test-target-http-proxy' + '-' + random_string
 
     # These will all fail if errors happen on insert
     tests("#insert_target_http_proxy").formats(@insert_target_http_proxy_format) do

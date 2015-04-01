@@ -1,3 +1,5 @@
+require 'securerandom'
+
 Shindo.tests('Fog::Compute[:google] | disk requests', ['google']) do
 
   @google = Fog::Compute[:google]
@@ -13,7 +15,7 @@ Shindo.tests('Fog::Compute[:google] | disk requests', ['google']) do
       'progress' => Integer,
       'zone' => String,
       'insertTime' => String,
-      'startTime' => String,
+      # 'startTime' => String, # This exists in mocks but not in the real request.
       'operationType' => String
   }
 
@@ -43,13 +45,15 @@ Shindo.tests('Fog::Compute[:google] | disk requests', ['google']) do
       'progress' => Integer,
       'insertTime' => String,
       'zone' => String,
-      'startTime' => String,
+      # 'startTime' => String, # This is in the Mock version but not the real one. why?
       'operationType' => String
   }
 
   tests('success') do
 
-    disk_name = 'new-disk-test'
+    random_string = SecureRandom.hex
+
+    disk_name = 'fog-disk-request-test' + '-' + random_string
     disk_size = '2'
     zone_name = 'us-central1-a'
     image_name = 'debian-7-wheezy-v20140408'

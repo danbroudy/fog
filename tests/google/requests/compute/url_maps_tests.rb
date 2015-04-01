@@ -11,7 +11,6 @@ Shindo.tests('Fog::Compute[:google] | url map requests', ['google']) do
       'status' => String,
       'user' => String,
       'progress' => Integer,
-      'zone' => String,
       'insertTime' => String,
       'startTime' => String,
       'operationType' => String
@@ -23,9 +22,10 @@ Shindo.tests('Fog::Compute[:google] | url map requests', ['google']) do
       'selfLink' => String,
       'creationTimestamp' => String,
       'name' => String,
-      'hostRules' => Array,
-      'pathMatchers' => Array,
-      'tests' => Array,
+      #TODO: Make this test a more complicated example so these values are actually returned.
+      #'hostRules' => Array,
+      #'pathMatchers' => Array,
+      #'tests' => Array,
       'defaultService' => String,
   }
 
@@ -40,7 +40,6 @@ Shindo.tests('Fog::Compute[:google] | url map requests', ['google']) do
       'user' => String,
       'progress' => Integer,
       'insertTime' => String,
-      'zone' => String,
       'startTime' => String,
       'operationType' => String
   }

@@ -1,3 +1,5 @@
+require 'securerandom'
+
 Shindo.tests('Fog::Compute[:google] | backend services requests', ['google']) do
 
   @google = Fog::Compute[:google]
@@ -11,7 +13,6 @@ Shindo.tests('Fog::Compute[:google] | backend services requests', ['google']) do
       'status' => String,
       'user' => String,
       'progress' => Integer,
-      'zone' => String,
       'insertTime' => String,
       'startTime' => String,
       'operationType' => String
@@ -23,7 +24,6 @@ Shindo.tests('Fog::Compute[:google] | backend services requests', ['google']) do
       'selfLink' => String,
       'creationTimestamp' => String,
       'name' => String,
-      'backends' => Array,
       'healthChecks' => Array,
       'port' => Integer,
       'protocol' => String,
@@ -40,7 +40,6 @@ Shindo.tests('Fog::Compute[:google] | backend services requests', ['google']) do
       'user' => String,
       'progress' => Integer,
       'insertTime' => String,
-      'zone' => String,
       'startTime' => String,
       'operationType' => String
   }
@@ -54,13 +53,14 @@ Shindo.tests('Fog::Compute[:google] | backend services requests', ['google']) do
 
   tests('success') do
 
-    backend_service_name = 'test-backend-service'
+    random_string = SecureRandom.hex
+    backend_service_name = 'fog-test-backend-service' + '-' + random_string
     zone_name = 'us-central1-a'
 
     # These will all fail if errors happen on insert
     tests("#insert_backend_service").formats(@insert_backend_service_format) do
       health_check = create_test_http_health_check(Fog::Compute[:google])
-      options = { 'health_check' => health_check }
+      options = { 'healthChecks' => [health_check.self_link] }
       response = @google.insert_backend_service(backend_service_name, options).body
       wait_operation(@google, response)
       response

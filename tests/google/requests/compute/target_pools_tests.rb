@@ -53,7 +53,7 @@ Shindo.tests('Fog::Compute[:google] | target pools requests', ['google']) do
 
   tests('success') do
 
-    target_pool_name = 'test-target_pool'
+    target_pool_name = 'test-target-pool'
     region_name = 'us-central1'
     # These will all fail if errors happen on insert
     tests("#insert_target_pool").formats(@insert_target_pool_format) do

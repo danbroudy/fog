@@ -26,7 +26,7 @@ Shindo.tests('Fog::Compute[:google] | target instance requests', ['google']) do
       'zone' => String,
       'natPolicy' => String,
       'instance' => String,
-      'description' => String
+      #'description' => String # Only has a description if one is provided.
   }
 
   @delete_target_instance_format = {
@@ -54,7 +54,7 @@ Shindo.tests('Fog::Compute[:google] | target instance requests', ['google']) do
 
   tests('success') do
 
-    target_instance_name = 'test-target_instance'
+    target_instance_name = 'test-target-instance'
     @zone = 'us-central1-a'
 
     # These will all fail if errors happen on insert

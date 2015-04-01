@@ -11,7 +11,6 @@ Shindo.tests('Fog::Compute[:google] | HTTP health checks requests', ['google']) 
       'status' => String,
       'user' => String,
       'progress' => Integer,
-      'zone' => String,
       'insertTime' => String,
       'startTime' => String,
       'operationType' => String
@@ -43,7 +42,6 @@ Shindo.tests('Fog::Compute[:google] | HTTP health checks requests', ['google']) 
       'user' => String,
       'progress' => Integer,
       'insertTime' => String,
-      'zone' => String,
       'startTime' => String,
       'operationType' => String
   }
@@ -57,7 +55,7 @@ Shindo.tests('Fog::Compute[:google] | HTTP health checks requests', ['google']) 
 
   tests('success') do
 
-    http_health_check_name = 'test-http-health-check'
+    http_health_check_name = 'fog-test-http-health-check'
 
     # These will all fail if errors happen on insert
     tests("#insert_http_health_check").formats(@insert_http_health_check_format) do

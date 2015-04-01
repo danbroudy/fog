@@ -55,7 +55,9 @@ Shindo.tests('Fog::Compute[:google] | network requests', ['google']) do
     ip_range = '192.168.0.0/16'
 
     tests("#insert_network").formats(@insert_network_format) do
-      @google.insert_network(network_name, ip_range).body
+      response = @google.insert_network(network_name, ip_range).body
+      wait_operation(@google, response)
+      response
     end
 
     tests("#get_network").formats(@get_network_format) do

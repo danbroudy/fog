@@ -21,15 +21,22 @@ module Fog
         def save
           requires :name, :health_checks
 
+          # TODO: Question (broudy): should this only accept arrays of health check hashes
+          # or should it also accept arrays of selfLinks (aka strings)
+          # Should we just ignore multiple health_checks because backends currenly only accept one?
+
           options = {
             'description' => description,
             'backends' => backends,
             'fingerprint' => fingerprint,
-            'healthChecks' => health_checks,
+            'healthChecks' => [ health_checks[0].self_link ],
             'port' => port,
             'protocol' => protocol,
             'timeoutSec' => timeout_sec
           }
+
+          # Remove any options where value is null
+          options.delete_if { |k, v| v.nil?}
 
           data = service.insert_backend_service(name, options).body
           operation = Fog::Compute::Google::Operations.new(:service => service).get(data['name'])
